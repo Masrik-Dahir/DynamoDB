@@ -48,19 +48,16 @@ const happyIncOrgId = "c89608cf-39a7-4589-9eea-173ae87192da";
 var params = {
     TableName: 'happy-projects',
     Key: { PK : `ORG#${happyIncOrgId}`, SK: `#METADATA#${happyIncOrgId}`},
-    UpdateExpression: 'set #a = :x + :y',
-    ConditionExpression: '#a < :MAX',
-    ExpressionAttributeNames: {'#a' : 'Sum'},
+    UpdateExpression: 'set #name = :name',
+    ExpressionAttributeNames: {'#name' : 'name'},
     ExpressionAttributeValues: {
-      ':x' : 20,
-      ':y' : 45,
-      ':MAX' : 100,
+      ':name' : "Updated",
     }
   };
   
   var documentClient = new AWS.DynamoDB.DocumentClient();
   
-  documentClient.update(params, function(err, data) {
+  dynamodb.update(params, function(err, data) {
      if (err) console.log(err);
      else console.log(data);
   });
